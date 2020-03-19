@@ -37,8 +37,8 @@ Module.register("The-Moon", {
         Log.info("Starting module: " + this.name); 
         this.scheduleUpdate();
         this.srss = {};
-        this.mooninfo = {};		
-        this.moon = {};
+        this.mooninfo = null;		
+        this.moon = null;
 		this.getMoon();
          
     }, 
@@ -46,31 +46,33 @@ Module.register("The-Moon", {
     getDom: function() { 
  
         var wrapper = document.createElement('div');
-		var rows = document.createElement('div');
-		var moon = this.moon;
-		var mooninfo = this.mooninfo;
-		var srss = this.srss;
-        var cycle = (Math.round(moon.Distance) < "404580" && Math.round(moon.Distance) > "251663") ? "Apogee - Furthest from Earth" : "Perigree - Closest to Earth";
-        var distance = Math.round(moon.Distance);moon = this.moon;
-         
-		var moonSetIcon = "<img class=moons src'modules/The-Moon/ Moon/ Moonset1.svg'>";
-		var moonRiseIcon = "<img class=moons src'modules/The-Moon/ Moon/ Moonrise1.svg'>";
-		var Name = (this.moon.Moon[0] != undefined || null || 'undefined') ? "Name: " + this.moon.Moon[0] : "";
-        var MoonPhase = this.config.moon[this.moon.Phase];
-        var phase = this.moon.Phase;
-        var light = this.moon.Illumination.toString().replace(/^[0.]+/, "");
-        var litMoon = (light < 10 && phase != "Waning Crescent") ? light + "0" : light;
-        var fullyLit = (this.moon.Illumination == "1") ? litMoon + "0%" : litMoon + "%";
-        var path = 'modules/The-Moon/Moon/sun';
-		var now = moment().format('h:MM a'); 
- 		
-		var endDiv = document.createElement('div');
-        endDiv.classList.add("columns","small","bright"); 
-		endDiv.innerHTML = `<img src =${MoonPhase} height="37px" width="37px"><br>${this.moon.Phase} ~ Illumination: ${fullyLit}<br>${Name}<br>The moon is: ${distance} miles from Earth<br>and is in ${cycle}<br>Moon Rise: ${mooninfo.MoonRise}<br>Moon Set: ${mooninfo.MoonSet}<br>
-		<br>Sun Rise/Set<br><img src = ${path}/sunrise.svg height=8% width=8%>  ${srss.sunrise}<br><img src=${path}/sunset.svg height=8%; width=8%;>  ${srss.sunset}<br>Daylength  ${srss.day_length}`;
-        
-		rows.appendChild(endDiv);
-		wrapper.appendChild(rows); 
+        if( this.moon){
+    		var rows = document.createElement('div');
+    		var moon = this.moon;
+    		var mooninfo = this.mooninfo;
+    		var srss = this.srss;
+            var cycle = (Math.round(moon.Distance) < "404580" && Math.round(moon.Distance) > "251663") ? "Apogee - Furthest from Earth" : "Perigree - Closest to Earth";
+            var distance = Math.round(moon.Distance);moon = this.moon;
+             
+    		var moonSetIcon = "<img class=moons src'modules/The-Moon/ Moon/ Moonset1.svg'>";
+    		var moonRiseIcon = "<img class=moons src'modules/The-Moon/ Moon/ Moonrise1.svg'>";
+    		var Name = (this.moon.Moon[0] != undefined || null || 'undefined') ? "Name: " + this.moon.Moon[0] : "";
+            var MoonPhase = this.config.moon[this.moon.Phase];
+            var phase = this.moon.Phase;
+            var light = this.moon.Illumination.toString().replace(/^[0.]+/, "");
+            var litMoon = (light < 10 && phase != "Waning Crescent") ? light + "0" : light;
+            var fullyLit = (this.moon.Illumination == "1") ? litMoon + "0%" : litMoon + "%";
+            var path = 'modules/The-Moon/Moon/sun';
+    		var now = moment().format('h:MM a'); 
+     		
+    		var endDiv = document.createElement('div');
+            endDiv.classList.add("columns","small","bright"); 
+    		endDiv.innerHTML = `<img src =${MoonPhase} height="37px" width="37px"><br>${this.moon.Phase} ~ Illumination: ${fullyLit}<br>${Name}<br>The moon is: ${distance} miles from Earth<br>and is in ${cycle}<br>Moon Rise: ${mooninfo.MoonRise}<br>Moon Set: ${mooninfo.MoonSet}<br>
+    		<br>Sun Rise/Set<br><img src = ${path}/sunrise.svg height=8% width=8%>  ${srss.sunrise}<br><img src=${path}/sunset.svg height=8%; width=8%;>  ${srss.sunset}<br>Daylength  ${srss.day_length}`;
+    		rows.appendChild(endDiv);
+            wrapper.appendChild(rows); 
+         }
+
 	 
         return wrapper;
     }, 
