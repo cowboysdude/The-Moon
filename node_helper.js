@@ -30,7 +30,7 @@ module.exports = NodeHelper.create({
 				"lat":42.089797,
 				"lon": -76.807734
 			};
-			Algorithmia.client("simgoEtddECkJVn/hWQ8kkYuVrJ1")
+			Algorithmia.client(" ")
 			  .algo("jhurliman/SunMoonCalculator/0.1.0?timeout=300") // timeout is optional
 			  .pipe(input)
 			  .then(function(response) {
